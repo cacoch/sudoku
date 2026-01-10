@@ -1,4 +1,4 @@
 
 
 sudoku: sudoku.c
-	gcc sudoku.c -o sudoku
+	gcc -ggdb3 sudoku.c -o sudoku
