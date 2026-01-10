@@ -33,7 +33,7 @@ void display(char *d)
 }
 
 /*
- * check  n-row for existence j
+ * check  n-row for j existence 
  * input: row number
  *        j number to check
  * output: 1 exist
@@ -43,34 +43,17 @@ int check_nrow(int row, int j)
 {
   printf("Row %d : ", row);
 
-  for (int i = row * 9; i < 9 * (row + 1); i++)
-    printf(" %c ", data[i]);
-  printf("\n");
-  return 1;
+  for (int i = row * 9; i < 9 * (row + 1); i++){
+    if (j == (int)data[i] -48) return 1; 
+  }
+  return 0;
 }
+
 
 int main()
 {
   printf("%s", formated_data);
   display(data);
-  check_nrow(0, 1);
-  printf("===\n");
-  check_nrow(1, 1);
-  printf("===\n");
-  check_nrow(2, 1);
-  printf("===\n");
-  check_nrow(3, 1);
-  printf("===\n");
-  check_nrow(4, 1);
-  printf("===\n");
-  check_nrow(5, 1);
-  printf("===\n");
-  check_nrow(6, 1);
-  printf("===\n");
-  check_nrow(7, 1);
-  printf("===\n");
-  check_nrow(8, 1);
-  printf("===\n");
 
   return 0;
 }
