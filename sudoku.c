@@ -41,10 +41,28 @@ void display(char *d)
  */
 int check_nrow(int row, int j)
 {
-  printf("Row %d : ", row);
 
   for (int i = row * 9; i < 9 * (row + 1); i++){
     if (j == (int)data[i] -48) return 1; 
+  }
+  return 0;
+}
+
+/*
+ * check  n-column for j existence 
+ * input: column number
+ *        j number to check
+ * output: 1 exist
+ *         0 no
+ */
+int check_ncolumn(int column, int j)
+{
+
+  for (int i = 0; i < 81; i++){
+	  if( i % 9 == column) {
+    if (j == (int)data[i] -48) return 1; 
+	  }	
+    
   }
   return 0;
 }
@@ -54,6 +72,15 @@ int main()
 {
   printf("%s", formated_data);
   display(data);
+  check_ncolumn(0,1);
+  printf("=\n");
+  check_ncolumn(1,1);
+  printf("=\n");
+  check_ncolumn(7,1);
+  printf("=\n");
+  check_ncolumn(8,1);
+  printf("=\n");
+
 
   return 0;
 }
