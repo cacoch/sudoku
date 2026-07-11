@@ -12,28 +12,28 @@ char solution[] = "4671928359128356473856471922963514787489263515314789268732645
 
 void display(char *d)
 {
-  printf("+---------+---------+---------+\n");
+    printf("+---------+---------+---------+\n");
 
-  for (int j = 0; j < 9; j++)
+    for (int j = 0; j < 9; j++)
     {
-            printf("|");
-      for (int i = j * 9 ; i < 9 * (j + 1); i++)
+        printf("|");
+        for (int i = j * 9 ; i < 9 * (j + 1); i++)
         {
-          printf(" %c ",  d[i]); 
-          if ( i % 3 == 2)
-            printf("|");
+            printf(" %c ",  d[i]);
+            if ( i % 3 == 2)
+                printf("|");
         }
-      printf("\n");
-          if ( j % 3 == 2)
-  printf("+---------+---------+---------+\n");
- 
+        printf("\n");
+        if ( j % 3 == 2)
+            printf("+---------+---------+---------+\n");
+
 
     }
 
 }
 
 /*
- * check  n-row for j existence 
+ * check  n-row for j existence
  * input: row number
  *        j number to check
  * output: 1 exist
@@ -42,14 +42,14 @@ void display(char *d)
 int check_nrow(int row, int j)
 {
 
-  for (int i = row * 9; i < 9 * (row + 1); i++){
-    if (j == (int)data[i] -48) return 1; 
-  }
-  return 0;
+    for (int i = row * 9; i < 9 * (row + 1); i++) {
+        if (j == (int)data[i] -48) return 1;
+    }
+    return 0;
 }
 
 /*
- * check  n-column for j existence 
+ * check  n-column for j existence
  * input: column number
  *        j number to check
  * output: 1 exist
@@ -58,29 +58,154 @@ int check_nrow(int row, int j)
 int check_ncolumn(int column, int j)
 {
 
-  for (int i = 0; i < 81; i++){
-	  if( i % 9 == column) {
-    if (j == (int)data[i] -48) return 1; 
-	  }	
-    
-  }
-  return 0;
+    for (int i = 0; i < 81; i++) {
+        if( i % 9 == column) {
+            if (j == (int)data[i] -48) return 1;
+        }
+
+    }
+    return 0;
+}
+
+/*
+ * check  n-square for j existence
+ * input: square number
+ *        j number to check
+ * output: 1 exist
+ *         0 no
+ *
+ *   squares numbering
+ *         0 1 2
+ *         3 4 5
+ *         6 7 8
+ */
+int check_nsquare(int sqr, int x)
+{
+
+    switch(sqr) {
+    case  0:
+        for (int j=0; j <3; j++) {
+            printf("\n");
+            for (int i = 0; i< 3; i++) {
+                //  printf(" %c ",	data[i + j*9 ]);
+                if (x == (int)data[i + j*9] -48) return 1;
+
+
+            }
+        }
+    case  1:
+        for (int j=0; j <3; j++) {
+            printf("\n");
+            for (int i = 3; i< 6; i++) {
+                //  printf(" %c ",	data[i + j*9 ]);
+
+                if (x == (int)data[i + j*9] -48) return 1;
+
+            }
+        }
+
+    case  2:
+        for (int j=0; j <3; j++) {
+            printf("\n");
+            for (int i = 6; i< 9; i++) {
+                //  printf(" %c ",	data[i + j*9 ]);
+
+                if (x == (int)data[i + j*9] -48) return 1;
+
+            }
+        }
+
+    case  3:
+        for (int j=0; j <3; j++) {
+            printf("\n");
+            for (int i = 0; i< 3; i++) {
+                //  printf(" %c ",	data[i + j*9 +3*9 ]);
+
+                if (x == (int)data[i + j*9 + 3*9] -48) return 1;
+
+            }
+        }
+
+    case  4:
+        for (int j=0; j <3; j++) {
+            printf("\n");
+            for (int i = 3; i< 6; i++) {
+                //  printf(" %c ",	data[i + j*9 +3*9 ]);
+                if (x == (int)data[i + j*9 +3*9] -48) return 1;
+
+
+            }
+        }
+
+    case  5:
+        for (int j=0; j <3; j++) {
+            printf("\n");
+            for (int i = 6; i< 9; i++) {
+                //  printf(" %c ",	data[i + j*9 +3*9 ]);
+
+                if (x == (int)data[i + j*9 +3*9] -48) return 1;
+
+            }
+        }
+    case  6:
+        for (int j=0; j <3; j++) {
+            printf("\n");
+            for (int i = 0; i< 3; i++) {
+                //  printf(" %c ",	data[i + j*9 +6*9 ]);
+
+                if (x == (int)data[i + j*9 +6*9] -48) return 1;
+
+            }
+        }
+    case  7:
+        for (int j=0; j <3; j++) {
+            printf("\n");
+            for (int i = 3; i< 6; i++) {
+                //  printf(" %c ",	data[i + j*9 +6*9 ]);
+
+                if (x == (int)data[i + j*9 +6*9] -48) return 1;
+
+            }
+        }
+    case  8:
+        for (int j=0; j <3; j++) {
+            printf("\n");
+            for (int i = 6; i< 9; i++) {
+                //  printf(" %c ",	data[i + j*9 +6*9 ]);
+
+                if (x == (int)data[i + j*9 +6*9] -48) return 1;
+
+            }
+        }
+    } //end switch
+
+
+    return 0;
 }
 
 
 int main()
 {
-  printf("%s", formated_data);
-  display(data);
-  check_ncolumn(0,1);
-  printf("=\n");
-  check_ncolumn(1,1);
-  printf("=\n");
-  check_ncolumn(7,1);
-  printf("=\n");
-  check_ncolumn(8,1);
-  printf("=\n");
+    printf("%s", formated_data);
+    display(data);
+    check_ncolumn(0,1);
+    printf("=\n");
+    check_ncolumn(1,1);
+    printf("=\n");
+    check_ncolumn(7,1);
+    printf("=\n");
+    check_ncolumn(8,1);
+    printf("=\n");
 
+    // check_nsquare(0,1);
+    //  check_nsquare(1,1);
+    //  check_nsquare(2,1);
+    // check_nsquare(3,1);
 
-  return 0;
+    // check_nsquare(4,1);
+    // check_nsquare(5,1);
+    //  check_nsquare(6,1);
+    // check_nsquare(7,1);
+    check_nsquare(8,1);
+    return 0;
 }
