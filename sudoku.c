@@ -184,6 +184,65 @@ int check_nsquare(int sqr, int x)
 }
 
 
+/*
+ * check if number fit
+ * input: pos linear position
+ *        j number to check
+ * output: 1 exist (doesn't fit)
+ *         0 no (fit )
+ *
+ */
+int check_num(int pos,  int j)
+{
+    int row, col, sqr;
+    int result;
+
+    row = pos/9;
+//	printf("row %d, ", row);
+    result = check_nrow( row, j);
+
+    if ( result == 1)
+        return 1;
+
+    col = pos % 9;
+    //printf("col %d - ", col);
+    result =  check_ncolumn( col, j);
+
+    if ( result == 1)
+        return 1;
+
+    if(row < 3) {
+        if(col < 3)
+            sqr = 0;
+        else if ((col <6) && (col>2))
+            sqr = 1;
+        else
+            sqr = 2;
+    }
+
+    else if( (row < 6) && (row >2)) {
+        if(col < 3)
+            sqr = 3;
+        else if ((col <6) && (col>2))
+            sqr = 4;
+        else
+            sqr = 5;
+    }
+
+    else  {
+        if(col < 3)
+            sqr = 6;
+        else if ((col <6) && (col>2))
+            sqr = 7;
+        else
+            sqr = 8;
+    }
+
+    //printf("%d\n", sqr);
+
+    return 0;
+}
+
 int main()
 {
     printf("%s", formated_data);
@@ -206,6 +265,11 @@ int main()
     // check_nsquare(5,1);
     //  check_nsquare(6,1);
     // check_nsquare(7,1);
-    check_nsquare(8,1);
+    //check_nsquare(8,1);
+  //  for (int i=0; i < 81; i++) {
+  //      printf( "%d  :", i);
+  //      check_num(i, 10);
+  //  }
+
     return 0;
 }
