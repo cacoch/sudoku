@@ -1,14 +1,18 @@
 #include <stdio.h>
+#include <stdlib.h>
 
 
 
+//9 2 3 4 3
+char data[] =     "467100805912835607085647192296351470708920351531408926073064510624519783159783064";
+charsolution[]=   "467192835912835647385647192296351478748926351531478926873264519624519783159783264";
 
-char data[] = "467100805912835607085647192296351470708920351531408926073064510624519783159783064";
-
-char formated_data[] = " 467100805\n 912835607\n 085647192\n 296351470\n 708920351\n 531408926\n 073064510\n 624519783\n 159783064\n";
-
-char solution[] = "467192835912835647385647192296351478748926351531478926873264519624519783159783264";
-
+// number of 0's, what we have to solve
+int num_holes = 0;
+// linear position 0'so
+int arr_holes[40];
+// # current guess
+int current_hole=0;
 
 void display(char *d)
 {
@@ -243,33 +247,102 @@ int check_num(int pos,  int j)
     return 0;
 }
 
-int main()
+
+void show_holes()
 {
-    printf("%s", formated_data);
-    display(data);
-    check_ncolumn(0,1);
-    printf("=\n");
-    check_ncolumn(1,1);
-    printf("=\n");
-    check_ncolumn(7,1);
-    printf("=\n");
-    check_ncolumn(8,1);
-    printf("=\n");
+    for (int i =0; i < 81; i++)
+    {
+        if(data[i] == '0') {
+            printf("%d ", i);
+            arr_holes[num_holes]= i ;
+            num_holes++;
 
-    // check_nsquare(0,1);
-    //  check_nsquare(1,1);
-    //  check_nsquare(2,1);
-    // check_nsquare(3,1);
+        }
 
-    // check_nsquare(4,1);
-    // check_nsquare(5,1);
-    //  check_nsquare(6,1);
-    // check_nsquare(7,1);
-    //check_nsquare(8,1);
-  //  for (int i=0; i < 81; i++) {
-  //      printf( "%d  :", i);
-  //      check_num(i, 10);
-  //  }
-
-    return 0;
+    }
+    // printf("\n Holes %d \n", num_holes);
 }
+
+int prev_pos(void) {
+
+    if (current_hole == 0) {
+        printf("ups , it shouldn't happend");
+        exit(0);
+    }
+    else
+        current_hole--;
+
+
+
+    return arr_holes[current_hole];
+}
+
+int next_pos(void ) {
+    if (current_hole == num_holes) {
+        printf("Done");
+        display(data);
+        if ( strcmp( data, charsolution) == 0) {
+            printf("The solution is ok\n");
+            exit(0);
+
+        }
+        else
+            current_hole++;
+
+
+
+        return arr_holes[current_hole];
+    }
+
+    void find_match(int pos) {
+        for(int i =1; i <11; i++) {
+            if (i == 10) {
+                data[pos] = 0 + 48;
+                pos = prev_pos();
+                find_match(pos);
+            }
+            if( 	check_num(pos, i) == 0) {
+                printf("Match %d on position %d.\n", i, pos);
+                data[pos] = i + 48;
+                //display(data);
+                pos = next_pos();
+                find_match(pos);
+
+
+            }
+        }
+    }
+
+
+    int main()
+    {
+        display(data);
+        //check_ncolumn(0,1);
+        //printf("=\n");
+        //check_ncolumn(1,1);
+        //printf("=\n");
+        //check_ncolumn(7,1);
+        //printf("=\n");
+        //check_ncolumn(8,1);
+        //printf("=\n");
+
+        // check_nsquare(0,1);
+        //  check_nsquare(1,1);
+        //  check_nsquare(2,1);
+        // check_nsquare(3,1);
+
+        // check_nsquare(4,1);
+        // check_nsquare(5,1);
+        //  check_nsquare(6,1);
+        // check_nsquare(7,1);
+        //check_nsquare(8,1);
+        //  for (int i=0; i < 81; i++) {
+        //      printf( "%d  :", i);
+        //      check_num(i, 10);
+        //  }
+
+        show_holes();
+        find_match(4);
+
+        return 0;
+    }
