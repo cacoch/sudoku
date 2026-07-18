@@ -1,0 +1,4 @@
+https://raw.githubusercontent.com/dimitri/sudoku/refs/heads/master/easy50.txt
+https://raw.githubusercontent.com/dimitri/sudoku/refs/heads/master/hardest.txt
+https://raw.githubusercontent.com/dimitri/sudoku/refs/heads/master/sudoku.txt
+https://raw.githubusercontent.com/dimitri/sudoku/refs/heads/master/top95.txt
