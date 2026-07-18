@@ -320,32 +320,9 @@ void find_match(int pos) {
 }
 
 
-int main()
+int main(int argc, char *argv[])
 {
     display(data);
-    //check_ncolumn(0,1);
-    //printf("=\n");
-    //check_ncolumn(1,1);
-    //printf("=\n");
-    //check_ncolumn(7,1);
-    //printf("=\n");
-    //check_ncolumn(8,1);
-    //printf("=\n");
-
-    // check_nsquare(0,1);
-    //  check_nsquare(1,1);
-    //  check_nsquare(2,1);
-    // check_nsquare(3,1);
-
-    // check_nsquare(4,1);
-    // check_nsquare(5,1);
-    //  check_nsquare(6,1);
-    // check_nsquare(7,1);
-    //check_nsquare(8,1);
-    //  for (int i=0; i < 81; i++) {
-    //      printf( "%d  :", i);
-    //      check_num(i, 10);
-    //  }
 
     show_holes();
     find_match(arr_holes[0]);
