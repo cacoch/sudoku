@@ -1,4 +1,4 @@
-
+CFLAGS = -Wall -ggdb3
 
 sudoku: sudoku.c
-	gcc -ggdb3 sudoku.c -o sudoku
+	gcc $(CFLAGS) sudoku.c -o $@
