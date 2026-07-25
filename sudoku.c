@@ -4,14 +4,12 @@
 
 
 
-//9 2 3 4 3
-char data[] =     "467100805912835607085647192296351470708920351531408926073064510624519783159783064";
-char solution[]=  "467192835912835647385647192296351478748926351531478926873264519624519783159783264";
+char data[]=  "001400273372085964496720001600247005847601329100938007700092158918570432253004700";
 
 // number of 0's, what we have to solve
 int num_holes = 0;
 // linear position 0'so
-int arr_holes[40];
+int arr_holes[70];
 // # current guess
 int current_hole=0;
 
@@ -282,12 +280,6 @@ int next_pos(void ) {
     if (current_hole == num_holes -1 ) {
         printf("Done\n");
         display(data);
-        if ( strcmp( data, solution) == 0) {
-            printf("The solution is ok\n");
-        } else
-        {
-            printf("ups\n");
-        }
         exit(0);
 
     }
@@ -322,6 +314,10 @@ void find_match(int pos) {
 
 int main(int argc, char *argv[])
 {
+    if ( argc != 2) {
+        printf("Use ./sudoku input_file\n");
+        exit(1);
+    }
     display(data);
 
     show_holes();
@@ -329,3 +325,5 @@ int main(int argc, char *argv[])
 
     return 0;
 }
+
+
