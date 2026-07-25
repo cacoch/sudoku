@@ -1,10 +1,11 @@
+#define _GNU_SOURCE
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
 
 
 
-char data[]=  "001400273372085964496720001600247005847601329100938007700092158918570432253004700";
+char *data = NULL;
 
 // number of 0's, what we have to solve
 int num_holes = 0;
@@ -314,10 +315,26 @@ void find_match(int pos) {
 
 int main(int argc, char *argv[])
 {
+    FILE * fp;
+//    char * line = NULL;
+    size_t len = 0;
+    ssize_t read;
+
     if ( argc != 2) {
         printf("Use ./sudoku input_file\n");
         exit(1);
     }
+
+    fp = fopen(argv[1], "r");
+    if (fp == NULL)
+        exit(EXIT_FAILURE);
+
+    while ((read = getline(&data, &len, fp)) != -1) {
+        printf("Retrieved line of length %zu:\n", read);
+        printf("%s", data);
+    }
+
+
     display(data);
 
     show_holes();
@@ -327,3 +344,11 @@ int main(int argc, char *argv[])
 }
 
 
+
+/*
+    fclose(fp);
+    if (line)
+        free(line);
+    exit(EXIT_SUCCESS);
+ 
+*/
