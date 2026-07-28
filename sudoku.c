@@ -9,11 +9,11 @@
 char *data = NULL;
 
 // number of 0's, what we have to solve
-int num_holes = 0;
+int num_holes;
 // linear position 0'so
 int arr_holes[70];
 // # current guess
-int current_hole=0;
+int current_hole;
 
 // indicate is sudo is solved
 static int done = 0;
@@ -331,9 +331,9 @@ void find_match(int pos) {
 
 int main(int argc, char *argv[])
 {
-  clock_t t;
-  
-  t = clock();
+    clock_t t;
+    int i = 1;
+    t = clock();
     FILE * fp;
 //    char * line = NULL;
     size_t len = 0;
@@ -349,29 +349,39 @@ int main(int argc, char *argv[])
         exit(EXIT_FAILURE);
 
     while ((read = getline(&data, &len, fp)) != -1) {
+        printf("Sudoku #%d\n", i);
         printf("Retrieved line of length %zu:\n", read);
         printf("%s", data);
+	/* init data */
+        done = 0;
+        current_hole=0;
+	num_holes = 0;
+	for (int j = 0; j < 70; j++)
+		arr_holes[j]=0;
+
+	/* end of init data */
+        display(data);
+
+        show_holes();
+        find_match(arr_holes[0]);
+
+        i++;
     }
 
 
-    display(data);
-
-    show_holes();
-    find_match(arr_holes[0]);
-
     printf("DONE!!\n");
-  t = clock() - t;
-  printf ("It took me %d clicks (%f seconds).\n",t,((float)t)/CLOCKS_PER_SEC);
-    return 0;
+    fclose(fp);
+    if (data)
+        free(data);
+    t = clock() - t;
+    printf ("It took me %d clicks (%f seconds).\n",(int) t,((float)t)/CLOCKS_PER_SEC);
+    exit(EXIT_SUCCESS);
+
 }
 
 
 
 /*
-    fclose(fp);
-    if (line)
-        free(line);
-    exit(EXIT_SUCCESS);
 
 */
 
