@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <time.h>       /* clock_t, clock, CLOCKS_PER_SEC */
 
 
 
@@ -13,6 +14,9 @@ int num_holes = 0;
 int arr_holes[70];
 // # current guess
 int current_hole=0;
+
+// indicate is sudo is solved
+static int done = 0;
 
 void display(char *d)
 {
@@ -96,7 +100,7 @@ int check_nsquare(int sqr, int x)
 
             }
         }
-	break;
+        break;
     case  1:
         for (int j=0; j <3; j++) {
             //printf("\n");
@@ -106,7 +110,7 @@ int check_nsquare(int sqr, int x)
 
             }
         }
-	break;
+        break;
     case  2:
         for (int j=0; j <3; j++) {
             //printf("\n");
@@ -117,7 +121,7 @@ int check_nsquare(int sqr, int x)
 
             }
         }
-	break;
+        break;
     case  3:
         for (int j=0; j <3; j++) {
             //printf("\n");
@@ -128,7 +132,7 @@ int check_nsquare(int sqr, int x)
 
             }
         }
-	break;
+        break;
     case  4:
         for (int j=0; j <3; j++) {
             //printf("\n");
@@ -139,7 +143,7 @@ int check_nsquare(int sqr, int x)
 
             }
         }
-	break;
+        break;
     case  5:
         for (int j=0; j <3; j++) {
             //printf("\n");
@@ -150,7 +154,7 @@ int check_nsquare(int sqr, int x)
 
             }
         }
-	break;
+        break;
     case  6:
         for (int j=0; j <3; j++) {
             // printf("\n");
@@ -161,7 +165,7 @@ int check_nsquare(int sqr, int x)
 
             }
         }
-	break;
+        break;
     case  7:
         for (int j=0; j <3; j++) {
             // printf("\n");
@@ -172,7 +176,7 @@ int check_nsquare(int sqr, int x)
 
             }
         }
-	break;
+        break;
     case  8:
         for (int j=0; j <3; j++) {
             // printf("\n");
@@ -183,7 +187,7 @@ int check_nsquare(int sqr, int x)
 
             }
         }
-	break;
+        break;
     } //end switch
 
 
@@ -296,20 +300,29 @@ int next_pos(void ) {
     }
 }
 
+
 void find_match(int pos) {
     for(int i =1; i <11; i++) {
+        if (done == 1)
+            return;
+
         if (i == 10) {
             printf("#X on pos %d\n", pos);
             pos = prev_pos();
             data[pos] = 0 + 48;
-    
+
             return;
         }
-        if( 	check_num(pos, i) == 0) {
+        if( check_num(pos, i) == 0) { // if ok go to next 'hole'
             printf("#%d pos %2d  ->  ", i, pos);
             data[pos] = i + 48;
+            if (current_hole == num_holes -1 ) {
+                printf("Done\n");
+                display(data);
+                done = 1;
+                return ;
+            }
             //display(data);
-            //pos = next_pos();
             find_match(next_pos());
         }
     }
@@ -318,6 +331,9 @@ void find_match(int pos) {
 
 int main(int argc, char *argv[])
 {
+  clock_t t;
+  
+  t = clock();
     FILE * fp;
 //    char * line = NULL;
     size_t len = 0;
@@ -343,6 +359,9 @@ int main(int argc, char *argv[])
     show_holes();
     find_match(arr_holes[0]);
 
+    printf("DONE!!\n");
+  t = clock() - t;
+  printf ("It took me %d clicks (%f seconds).\n",t,((float)t)/CLOCKS_PER_SEC);
     return 0;
 }
 
@@ -353,5 +372,7 @@ int main(int argc, char *argv[])
     if (line)
         free(line);
     exit(EXIT_SUCCESS);
- 
+
 */
+
+
