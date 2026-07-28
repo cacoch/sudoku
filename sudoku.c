@@ -89,28 +89,27 @@ int check_nsquare(int sqr, int x)
     switch(sqr) {
     case  0:
         for (int j=0; j <3; j++) {
-            printf("\n");
+            //printf("\n");
             for (int i = 0; i< 3; i++) {
                 //  printf(" %c ",	data[i + j*9 ]);
                 if (x == (int)data[i + j*9] -48) return 1;
 
-
             }
         }
+	break;
     case  1:
         for (int j=0; j <3; j++) {
-            printf("\n");
+            //printf("\n");
             for (int i = 3; i< 6; i++) {
                 //  printf(" %c ",	data[i + j*9 ]);
-
                 if (x == (int)data[i + j*9] -48) return 1;
 
             }
         }
-
+	break;
     case  2:
         for (int j=0; j <3; j++) {
-            printf("\n");
+            //printf("\n");
             for (int i = 6; i< 9; i++) {
                 //  printf(" %c ",	data[i + j*9 ]);
 
@@ -118,10 +117,10 @@ int check_nsquare(int sqr, int x)
 
             }
         }
-
+	break;
     case  3:
         for (int j=0; j <3; j++) {
-            printf("\n");
+            //printf("\n");
             for (int i = 0; i< 3; i++) {
                 //  printf(" %c ",	data[i + j*9 +3*9 ]);
 
@@ -129,10 +128,10 @@ int check_nsquare(int sqr, int x)
 
             }
         }
-
+	break;
     case  4:
         for (int j=0; j <3; j++) {
-            printf("\n");
+            //printf("\n");
             for (int i = 3; i< 6; i++) {
                 //  printf(" %c ",	data[i + j*9 +3*9 ]);
                 if (x == (int)data[i + j*9 +3*9] -48) return 1;
@@ -140,10 +139,10 @@ int check_nsquare(int sqr, int x)
 
             }
         }
-
+	break;
     case  5:
         for (int j=0; j <3; j++) {
-            printf("\n");
+            //printf("\n");
             for (int i = 6; i< 9; i++) {
                 //  printf(" %c ",	data[i + j*9 +3*9 ]);
 
@@ -151,9 +150,10 @@ int check_nsquare(int sqr, int x)
 
             }
         }
+	break;
     case  6:
         for (int j=0; j <3; j++) {
-            printf("\n");
+            // printf("\n");
             for (int i = 0; i< 3; i++) {
                 //  printf(" %c ",	data[i + j*9 +6*9 ]);
 
@@ -161,9 +161,10 @@ int check_nsquare(int sqr, int x)
 
             }
         }
+	break;
     case  7:
         for (int j=0; j <3; j++) {
-            printf("\n");
+            // printf("\n");
             for (int i = 3; i< 6; i++) {
                 //  printf(" %c ",	data[i + j*9 +6*9 ]);
 
@@ -171,9 +172,10 @@ int check_nsquare(int sqr, int x)
 
             }
         }
+	break;
     case  8:
         for (int j=0; j <3; j++) {
-            printf("\n");
+            // printf("\n");
             for (int i = 6; i< 9; i++) {
                 //  printf(" %c ",	data[i + j*9 +6*9 ]);
 
@@ -181,6 +183,7 @@ int check_nsquare(int sqr, int x)
 
             }
         }
+	break;
     } //end switch
 
 
@@ -242,6 +245,10 @@ int check_num(int pos,  int j)
             sqr = 8;
     }
 
+    result =  check_nsquare( sqr, j);
+
+    if ( result == 1)
+        return 1;
     //printf("%d\n", sqr);
 
     return 0;
@@ -272,8 +279,6 @@ int prev_pos(void) {
     else
         current_hole--;
 
-
-
     return arr_holes[current_hole];
 }
 
@@ -282,7 +287,6 @@ int next_pos(void ) {
         printf("Done\n");
         display(data);
         exit(0);
-
     }
     else {
 
@@ -295,19 +299,18 @@ int next_pos(void ) {
 void find_match(int pos) {
     for(int i =1; i <11; i++) {
         if (i == 10) {
-            data[pos] = 0 + 48;
-            printf("XX on pos %d\n", pos);
+            printf("#X on pos %d\n", pos);
             pos = prev_pos();
-            find_match(pos);
+            data[pos] = 0 + 48;
+    
+            return;
         }
         if( 	check_num(pos, i) == 0) {
-            printf("# %d  pos %d -> ", i, pos);
+            printf("#%d pos %2d  ->  ", i, pos);
             data[pos] = i + 48;
             //display(data);
-            pos = next_pos();
-            find_match(pos);
-
-
+            //pos = next_pos();
+            find_match(next_pos());
         }
     }
 }
