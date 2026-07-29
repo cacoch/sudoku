@@ -93,19 +93,18 @@ int check_nsquare(int sqr, int x)
     switch(sqr) {
     case  0:
         for (int j=0; j <3; j++) {
-            //printf("\n");
+            
             for (int i = 0; i< 3; i++) {
-                //  printf(" %c ",	data[i + j*9 ]);
+           
                 if (x == (int)data[i + j*9] -48) return 1;
-
             }
         }
         break;
     case  1:
         for (int j=0; j <3; j++) {
-            //printf("\n");
+            
             for (int i = 3; i< 6; i++) {
-                //  printf(" %c ",	data[i + j*9 ]);
+           
                 if (x == (int)data[i + j*9] -48) return 1;
 
             }
@@ -113,9 +112,9 @@ int check_nsquare(int sqr, int x)
         break;
     case  2:
         for (int j=0; j <3; j++) {
-            //printf("\n");
+          
             for (int i = 6; i< 9; i++) {
-                //  printf(" %c ",	data[i + j*9 ]);
+         
 
                 if (x == (int)data[i + j*9] -48) return 1;
 
@@ -124,9 +123,9 @@ int check_nsquare(int sqr, int x)
         break;
     case  3:
         for (int j=0; j <3; j++) {
-            //printf("\n");
+        
             for (int i = 0; i< 3; i++) {
-                //  printf(" %c ",	data[i + j*9 +3*9 ]);
+       
 
                 if (x == (int)data[i + j*9 + 3*9] -48) return 1;
 
@@ -135,9 +134,9 @@ int check_nsquare(int sqr, int x)
         break;
     case  4:
         for (int j=0; j <3; j++) {
-            //printf("\n");
+      
             for (int i = 3; i< 6; i++) {
-                //  printf(" %c ",	data[i + j*9 +3*9 ]);
+     
                 if (x == (int)data[i + j*9 +3*9] -48) return 1;
 
 
@@ -146,9 +145,9 @@ int check_nsquare(int sqr, int x)
         break;
     case  5:
         for (int j=0; j <3; j++) {
-            //printf("\n");
+    
             for (int i = 6; i< 9; i++) {
-                //  printf(" %c ",	data[i + j*9 +3*9 ]);
+   
 
                 if (x == (int)data[i + j*9 +3*9] -48) return 1;
 
@@ -157,9 +156,9 @@ int check_nsquare(int sqr, int x)
         break;
     case  6:
         for (int j=0; j <3; j++) {
-            // printf("\n");
+  
             for (int i = 0; i< 3; i++) {
-                //  printf(" %c ",	data[i + j*9 +6*9 ]);
+ 
 
                 if (x == (int)data[i + j*9 +6*9] -48) return 1;
 
@@ -168,9 +167,9 @@ int check_nsquare(int sqr, int x)
         break;
     case  7:
         for (int j=0; j <3; j++) {
-            // printf("\n");
+
             for (int i = 3; i< 6; i++) {
-                //  printf(" %c ",	data[i + j*9 +6*9 ]);
+
 
                 if (x == (int)data[i + j*9 +6*9] -48) return 1;
 
@@ -179,9 +178,9 @@ int check_nsquare(int sqr, int x)
         break;
     case  8:
         for (int j=0; j <3; j++) {
-            // printf("\n");
+
             for (int i = 6; i< 9; i++) {
-                //  printf(" %c ",	data[i + j*9 +6*9 ]);
+
 
                 if (x == (int)data[i + j*9 +6*9] -48) return 1;
 
@@ -209,14 +208,14 @@ int check_num(int pos,  int j)
     int result;
 
     row = pos/9;
-//	printf("row %d, ", row);
+
     result = check_nrow( row, j);
 
     if ( result == 1)
         return 1;
 
     col = pos % 9;
-    //printf("col %d - ", col);
+
     result =  check_ncolumn( col, j);
 
     if ( result == 1)
@@ -253,7 +252,7 @@ int check_num(int pos,  int j)
 
     if ( result == 1)
         return 1;
-    //printf("%d\n", sqr);
+
 
     return 0;
 }
@@ -264,14 +263,17 @@ void show_holes()
     for (int i =0; i < 81; i++)
     {
         if(data[i] == '0') {
+#ifdef DEBUG_ALG
             printf("%d ", i);
+#endif 
             arr_holes[num_holes]= i ;
             num_holes++;
-
         }
 
     }
+#ifdef DEBUG_ALG
     printf("\n" );
+#endif 
 }
 
 int prev_pos(void) {
@@ -307,18 +309,25 @@ void find_match(int pos) {
             return;
 
         if (i == 10) {
+#ifdef DEBUG_ALG
             printf("#X on pos %d\n", pos);
+#endif 
             pos = prev_pos();
             data[pos] = 0 + 48;
 
             return;
         }
         if( check_num(pos, i) == 0) { // if ok go to next 'hole'
+#ifdef DEBUG_ALG
             printf("#%d pos %2d  ->  ", i, pos);
+#endif 
             data[pos] = i + 48;
             if (current_hole == num_holes -1 ) {
                 printf("Done\n");
+#ifdef DEBUG_ALG
+
                 display(data);
+#endif 
                 done = 1;
                 return ;
             }
@@ -335,7 +344,6 @@ int main(int argc, char *argv[])
     int i = 1;
     t = clock();
     FILE * fp;
-//    char * line = NULL;
     size_t len = 0;
     ssize_t read;
 
@@ -350,18 +358,19 @@ int main(int argc, char *argv[])
 
     while ((read = getline(&data, &len, fp)) != -1) {
         printf("Sudoku #%d\n", i);
-        printf("Retrieved line of length %zu:\n", read);
-        printf("%s", data);
-	/* init data */
+//        printf("Retrieved line of length %zu:\n", read);
+//       printf("%s", data);
+        /* init data */
         done = 0;
         current_hole=0;
-	num_holes = 0;
-	for (int j = 0; j < 70; j++)
-		arr_holes[j]=0;
+        num_holes = 0;
+        for (int j = 0; j < 70; j++)
+            arr_holes[j]=0;
 
-	/* end of init data */
+        /* end of init data */
+#ifdef DEBUG_ALG
         display(data);
-
+#endif 
         show_holes();
         find_match(arr_holes[0]);
 
@@ -378,11 +387,3 @@ int main(int argc, char *argv[])
     exit(EXIT_SUCCESS);
 
 }
-
-
-
-/*
-
-*/
-
-
